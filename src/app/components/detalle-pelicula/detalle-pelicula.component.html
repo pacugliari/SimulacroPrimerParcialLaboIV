@@ -1,0 +1,8 @@
+<div class="pelicula-detalle-container" *ngIf="pelicula">
+    <h2>{{ pelicula.nombre }}</h2>
+    <p>Tipo: {{ pelicula.tipo }}</p>
+    <p>Fecha de Estreno: {{ pelicula.fechaEstreno  | date:'dd/M/yyyy'  }}</p>
+    <p>Cantidad de Público: {{ pelicula.cantidadPublico }}</p>
+    <p>Foto: <img [src]="pelicula.fotoPelicula" alt="{{ pelicula.nombre }}" width="200"></p>
+  </div>
+  
