@@ -5,6 +5,7 @@ import { PeliculaAltaComponent } from './components/pelicula-alta/pelicula-alta.
 import { ActorAltaComponent } from './components/actor-alta/actor-alta.component';
 import { ActorListadoComponent } from './components/actor-listado/actor-listado.component';
 import { PeliculaListadoComponent } from './components/pelicula-listado/pelicula-listado.component';
+import { TablaPaisesComponent } from './components/tabla-paises/tabla-paises.component';
 
 const routes: Routes = [
   { path: 'bienvenido', pathMatch: 'full', redirectTo: '/busqueda' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'actor/alta', component: ActorAltaComponent},
   { path: 'actor/listado', component: ActorListadoComponent},
   { path: 'peliculas/listado', component: PeliculaListadoComponent},
+  { path: 'tablaPaises', component: TablaPaisesComponent},
   { path: '**', pathMatch: 'full', redirectTo: '/busqueda'},
 ];
 
