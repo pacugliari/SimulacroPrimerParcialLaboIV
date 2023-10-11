@@ -15,6 +15,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { TablaActorComponent } from './components/tabla-actor/tabla-actor.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     PeliculaListadoComponent,
     TablaPeliculaComponent,
     DetallePeliculaComponent,
-    TablaPaisesComponent
+    TablaPaisesComponent,
+    TablaActorComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Actor } from 'src/app/model/actor';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-actor-listado',
