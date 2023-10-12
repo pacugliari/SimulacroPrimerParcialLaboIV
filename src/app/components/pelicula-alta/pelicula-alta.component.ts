@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Actor } from 'src/app/model/actor';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pelicula-alta',
@@ -27,15 +28,20 @@ export class PeliculaAltaComponent {
 
   }
 
-  registrarActor(){
+  async registrarActor(){
     //console.log(this.formActor)
-    if(this.actoresCargados.length === 0){
+    if( this.formActor.invalid || this.actoresCargados.length === 0 ){
       this.habilitarErrorActor = true;
     }else{
       if (this.selectedFile) {
         //const filePath = `/uploads/${this.selectedFile.name}`;
-        this.firestore.agregarPelicula(this.formActor.value,this.selectedFile,this.actoresCargados);
-        this.router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=> this.router.navigate(["peliculas/alta"]));
+        if(await this.firestore.agregarPelicula(this.formActor.value,this.selectedFile,this.actoresCargados)){
+          Swal.fire('Pelicula agregada', '', 'success')
+          this.router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=> this.router.navigate(["peliculas/alta"]));
+        }else{
+          Swal.fire('ERROR', 'No se pudo agregar la pelicula', 'error')
+        }
+        
       }else{
         alert("Debe subir una foto valida")
       }

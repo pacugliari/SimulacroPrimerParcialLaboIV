@@ -6,18 +6,18 @@
     <div class="container">
 
       <div class="row">
-        <div class="col-md-5 order-md-2 mb-4">
+        <div class="col-md-6 order-md-2 mb-4">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-muted">Tabla paises</span>
             <span class="badge badge-secondary badge-pill">3</span>
           </h4>
           <ul class="list-group mb-3">
             <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <app-tabla-paises style="margin-left: -15%;margin-top: -15%;" (eventPaisSeleccionado)="cargarPais($event)" ></app-tabla-paises>
+              <app-tabla-paises style="margin-left: -15%;margin-top: -15%;" (eventPaisSeleccionado)="cargarPais($event)" [mostrarSeleccionar]="true" [cargarPaises]="true"></app-tabla-paises>
             </li>
           </ul>
         </div>
-        <div class="col-md-7 order-md-1">
+        <div class="col-md-6 order-md-1">
           <h4 class="mb-3">Alta actor</h4>
           <form class="needs-validation" novalidate [formGroup]="formActor">
             <div class="row">

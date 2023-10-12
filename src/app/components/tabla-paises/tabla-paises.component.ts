@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Pais } from 'src/app/model/paises';
 import { PaisesService } from 'src/app/services/paises.service';
@@ -10,21 +10,20 @@ import { PaisesService } from 'src/app/services/paises.service';
 })
 export class TablaPaisesComponent {
 
-  paises : Array<Pais> = [];
-  mostrarSeleccionar : boolean = true;
+  @Input() paises : Pais[] = [];
+  @Input() mostrarSeleccionar : boolean = true;
+  @Input() cargarPaises : boolean = false;
   @Output() eventPaisSeleccionado = new EventEmitter<Pais>();
   
   constructor(private paisesService: PaisesService,private router:Router){
-    this.paisesService.TraerPaises().subscribe((respuesta :any) => {
-      for (let index = 0; index < 10; index++) {
-        let element = respuesta[index];
-        let pais  = new Pais();
-        pais.bandera = element.flags.png;
-        pais.nombre = element.name.common
-        pais.capital = element.capital[0]
-        this.paises.push(pais);
-      }
-    })
+  }
+
+  async ngOnInit(){
+    if(this.cargarPaises){
+      this.paisesService.TraerPaises().then((respuesta)=>{
+        this.paises =  respuesta;
+      });
+    }
   }
 
   seleccionar(pais : Pais){
@@ -33,3 +32,5 @@ export class TablaPaisesComponent {
     this.eventPaisSeleccionado.emit(pais);
   }
 }
+
+

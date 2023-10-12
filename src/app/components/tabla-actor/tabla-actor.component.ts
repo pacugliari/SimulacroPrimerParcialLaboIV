@@ -18,7 +18,7 @@ export class TablaActorComponent {
   }
 
   ngOnInit(){
-    console.log(this.datos)
+    //console.log(this.datos)
     if(typeof this.datos === 'undefined'){
       this.firestoreService.getActores()
       .then((respuesta)=> {

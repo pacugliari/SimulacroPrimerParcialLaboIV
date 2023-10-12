@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Pelicula } from 'src/app/model/pelicula';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-busqueda',
@@ -13,7 +15,11 @@ export class BusquedaComponent {
   mostrarOpciones : boolean = true;
   peliculaSeleccionada : Pelicula = new Pelicula();
 
-  constructor(private firestore:FirestoreService){
+  constructor(private firestore:FirestoreService,private router : Router){
+    this.actualizarPeliculas();
+  }
+
+  actualizarPeliculas(){
     this.firestore.getPeliculas().then((respuesta)=>{
       this.peliculas = respuesta;
     })
@@ -49,7 +55,32 @@ export class BusquedaComponent {
   }*/
 
   mostrar(event:any){
-    this.mostrarOpciones = !this.mostrarOpciones;
     this.peliculaSeleccionada = event;
+  }
+
+  cambiarVista(){
+    this.mostrarOpciones = !this.mostrarOpciones;
+  }
+
+  borrarPelicula(){
+    if(typeof this.peliculaSeleccionada.id === 'undefined')
+      return;
+
+    Swal.fire({
+      title: 'Esta seguro que quiere eliminar la pelicula?',
+      showCancelButton: true,
+      confirmButtonText: 'Borrar',
+      cancelButtonText: `Cancelar`,
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        if (await this.firestore.borrarPelicula(this.peliculaSeleccionada)){
+          Swal.fire('Pelicula borrada', '', 'success')
+          this.actualizarPeliculas();
+          this.mostrarOpciones=!this.mostrarOpciones;
+        }else{
+          Swal.fire('ERROR', 'No se pudo borrar la pelicula', 'error')
+        }
+      }
+    })
   }
 }
